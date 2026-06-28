@@ -13,7 +13,7 @@
         @media(max-width:768px){ #gameContainer{max-width:100%;max-height:100%;border-radius:0;} }
         #gameCanvas{width:100%;height:100%;display:block;cursor:crosshair;}
         
-        .ui-overlay{position:absolute;top:0;left:0;right:0;padding:12px 16px;display:flex;justify-content:space-between;align-items:flex-start;pointer-events:none;z-index:10;}
+        .ui-overlay{position:absolute;top:0;left:0;right:0;padding:12px 16px;display:flex;justify-content:space-between;align-items:flex-start;pointer-events:none;z-index:10;gap:8px;}
         .stats-panel{background:rgba(10,10,18,0.92);backdrop-filter:blur(8px);border-radius:10px;padding:10px 14px;border:1px solid rgba(255,107,53,0.25);}
         .stat-row{display:flex;align-items:center;gap:8px;margin-bottom:6px;}.stat-row:last-child{margin-bottom:0;}
         .stat-label{color:var(--text-muted);font-size:10px;text-transform:uppercase;letter-spacing:1px;min-width:55px;}
@@ -27,7 +27,12 @@
         @keyframes pulse{0%,100%{opacity:1;}50%{opacity:0.6;}}
         .timer-bar-container{position:absolute;bottom:90px;left:50%;transform:translateX(-50%);width:180px;height:5px;background:rgba(255,255,255,0.1);border-radius:3px;overflow:hidden;z-index:10;}
         .timer-bar{height:100%;width:100%;background:linear-gradient(90deg,var(--accent),#ffb347);border-radius:3px;transition:width 0.05s linear;}
-        
+
+        /* Player count badge */
+        .player-count-badge{position:absolute;bottom:12px;left:50%;transform:translateX(-50%);background:rgba(10,10,18,0.88);backdrop-filter:blur(6px);border-radius:20px;padding:6px 18px;border:1px solid rgba(46,204,113,0.3);z-index:10;pointer-events:none;display:none;}
+        .player-count-badge .pc-icon{color:var(--success);font-size:14px;margin-right:6px;}
+        .player-count-badge .pc-text{color:var(--text);font-size:13px;font-weight:600;}
+
         /* ========== QNA ANNOUNCEMENT OVERLAY ========== */
         .qna-announcement {
             position: absolute;
@@ -108,14 +113,14 @@
         }
 
         .mobile-controls{position:absolute;bottom:12px;left:0;right:0;display:none;justify-content:space-between;padding:0 16px;z-index:20;pointer-events:none;}
-        @media(max-width:768px){.mobile-controls{display:flex;}.timer-bar-container{bottom:140px;}}
+        @media(max-width:768px){.mobile-controls{display:flex;}.timer-bar-container{bottom:140px;}.player-count-badge{bottom:auto;top:100px;}}
         .joystick-area{width:120px;height:120px;background:rgba(255,255,255,0.06);border-radius:50%;border:2px solid rgba(255,255,255,0.12);position:relative;pointer-events:auto;touch-action:none;}
         .joystick-knob{width:50px;height:50px;background:radial-gradient(circle at 35% 35%,rgba(255,107,53,0.95),rgba(255,107,53,0.65));border-radius:50%;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);box-shadow:0 3px 12px rgba(255,107,53,0.4);}
         .action-buttons{display:flex;gap:12px;align-items:flex-end;pointer-events:auto;}
         .shoot-btn{width:80px;height:80px;background:radial-gradient(circle at 35% 35%,var(--danger),#c0392b);border-radius:50%;border:3px solid rgba(255,255,255,0.2);box-shadow:0 5px 20px rgba(230,57,70,0.45);display:flex;justify-content:center;align-items:center;color:white;font-weight:800;font-size:13px;text-transform:uppercase;cursor:pointer;touch-action:manipulation;}
         .shoot-btn:active,.shoot-btn.pressed{transform:scale(0.92);}
         
-        .screen{position:absolute;top:0;left:0;right:0;bottom:0;background:rgba(10,10,18,0.97);backdrop-filter:blur(15px);display:flex;flex-direction:column;justify-content:center;align-items:center;z-index:100;transition:opacity 0.3s ease,visibility 0.3s ease;visibility:visible;opacity:1;overflow-y:auto;padding:20px;}
+        .screen{position:absolute;top:0;left:0;right:0;bottom:0;background:rgba(10,10,18,0.97);backdrop-filter:blur(15px);display:flex;flex-direction:column;justify-content:center;align-items:center;z-index:100;transition:opacity 0.3s ease,visibility 0.5s ease;visibility:visible;opacity:1;overflow-y:auto;padding:20px;}
         .screen.hidden{visibility:hidden;opacity:0;pointer-events:none;}
         .game-title{font-size:clamp(28px,6vw,48px);font-weight:900;color:var(--text);text-align:center;margin-bottom:6px;}
         .game-subtitle{font-size:clamp(13px,2.5vw,18px);color:var(--accent);margin-bottom:25px;text-transform:uppercase;letter-spacing:4px;font-weight:600;}
@@ -140,6 +145,28 @@
         .final-waves{font-size:20px;color:var(--text-muted);margin-bottom:25px;}
         @media(max-width:480px){.upload-area{width:90px;height:90px;}.upload-section{gap:14px;}}
 
+        /* Mode Toggle */
+        .mode-section{margin-bottom:25px;text-align:center;}
+        .mode-label{font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;}
+        .mode-toggle{display:flex;gap:10px;justify-content:center;}
+        .mode-btn{padding:10px 22px;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:2px;border-radius:25px;border:2px solid rgba(255,255,255,0.12);background:transparent;color:var(--text-muted);cursor:pointer;transition:all 0.2s;}
+        .mode-btn:hover{border-color:var(--accent);color:var(--accent);}
+        .mode-btn.active{background:linear-gradient(135deg,var(--accent),#ff8c42);color:white;border-color:var(--accent);box-shadow:0 4px 15px rgba(255,107,53,0.3);}
+                .server-section{margin-bottom:20px;display:none;flex-direction:column;align-items:center;gap:8px;}
+                .you-died-overlay{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:120;text-align:center;pointer-events:none;display:none;}
+                .you-died-overlay.active{display:block;}
+                .you-died-text{font-size:clamp(36px,8vw,64px);font-weight:900;color:var(--danger);text-shadow:0 0 40px rgba(230,57,70,0.8),0 0 80px rgba(230,57,70,0.4);text-transform:uppercase;letter-spacing:4px;}
+                .you-died-sub{font-size:14px;color:var(--text-muted);margin-top:10px;font-weight:600;animation:pulse 1.5s ease-in-out infinite;}
+                .spectator-label{position:absolute;bottom:50px;left:50%;transform:translateX(-50%);background:rgba(10,10,18,0.9);border-radius:20px;padding:8px 24px;border:1px solid rgba(255,255,255,0.1);z-index:120;color:var(--text-muted);font-size:12px;font-weight:600;letter-spacing:1px;text-transform:uppercase;display:none;pointer-events:none;}
+                .spectator-label.active{display:block;}
+        .server-section.visible{display:flex;}
+        .server-input{padding:10px 16px;border-radius:25px;border:2px solid rgba(255,255,255,0.12);background:rgba(255,255,255,0.05);color:var(--text);font-size:14px;text-align:center;width:260px;outline:none;transition:border-color 0.2s;}
+        .server-input:focus{border-color:var(--accent);}
+        .connection-status{font-size:12px;padding:4px 14px;border-radius:12px;font-weight:600;text-transform:uppercase;letter-spacing:1px;}
+        .connection-status.connected{color:var(--success);background:rgba(46,204,113,0.12);}
+        .connection-status.connecting{color:#f39c12;background:rgba(243,156,18,0.12);}
+        .connection-status.disconnected{color:var(--danger);background:rgba(230,57,70,0.12);}
+
         /* Sound toggle button */
         .sound-toggle {
             position: absolute;
@@ -163,6 +190,9 @@
         .sound-toggle.muted {
             opacity: 0.5;
         }
+
+        /* Player colors */
+        .player-dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:4px;vertical-align:middle;}
 
         /* ========== BOOK SELECTION OVERLAY ========== */
         .book-screen{position:absolute;top:0;left:0;right:0;bottom:0;z-index:150;display:flex;flex-direction:column;justify-content:center;align-items:center;background:rgba(10,10,18,0.95);backdrop-filter:blur(12px);visibility:hidden;opacity:0;transition:opacity 0.3s ease,visibility 0.3s ease;}
@@ -205,14 +235,34 @@
 <div class="timer-bar-container"><div class="timer-bar" id="timerBar"></div></div>
 <div class="mobile-controls" id="mobileControls"><div class="joystick-area" id="joystickArea"><div class="joystick-knob" id="joystickKnob"></div></div><div class="action-buttons"><button class="shoot-btn" id="shootBtn">FIRE</button></div></div>
 
+<div class="player-count-badge" id="playerCountBadge"><span class="pc-icon">👥</span><span class="pc-text" id="playerCountText">1 player</span></div>
+
+<div class="you-died-overlay" id="youDiedOverlay">
+    <div class="you-died-text">☠ You Died</div>
+    <div class="you-died-sub">Spectating other survivors...</div>
+</div>
+<div class="spectator-label" id="spectatorLabel">👁 Spectator Mode</div>
+
 <div class="screen" id="startScreen">
 <h1 class="game-title">Chandan vs Students</h1><p class="game-subtitle">Survive The Lecture</p>
+
+<div class="mode-section">
+<div class="mode-label">Game Mode</div>
+<div class="mode-toggle">
+<button class="mode-btn active" data-mode="single" id="modeSingle">Single Player</button>
+<button class="mode-btn" data-mode="multi" id="modeMulti">Multiplayer</button>
+</div>
+</div>
+<div class="server-section" id="serverSection">
+<div class="connection-status" id="connectionStatus">● Connecting...</div>
+</div>
+
 <div class="upload-section">
 <div class="upload-box"><label class="upload-label">Zombie Image</label><div class="upload-area" id="zombieUploadArea" onclick="document.getElementById('zombieInput').click()"><img id="zombiePreview" src="" alt="" style="display:none;"><div class="upload-placeholder" id="zombiePlaceholder"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg><div>Upload Face Photo</div></div><span class="change-btn">Change</span></div><input type="file" id="zombieInput" class="upload-input" accept="image/*"></div>
 <div class="upload-box"><label class="upload-label">Boss Image</label><div class="upload-area" id="bossUploadArea" onclick="document.getElementById('bossInput').click()"><img id="bossPreview" src="" alt="" style="display:none;"><div class="upload-placeholder" id="bossPlaceholder"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg><div>Upload Boss Photo</div></div><span class="change-btn">Change</span></div><input type="file" id="bossInput" class="upload-input" accept="image/*"></div>
 </div>
 <button class="start-btn" id="startBtn" disabled>Upload Images First</button>
-<div class="instructions"><p><span>Step 1:</span> Upload Chandan's face photo (Zombie)</p><p><span>Step 2:</span> Upload Chandan's boss photo (Flexing)</p><p><span>PC:</span> WASD Move | Mouse Aim | Click Shoot</p><p><span>Mobile:</span> Joystick Move | Fire Button Shoot</p><p style="margin-top:12px;color:var(--danger)">BOSS every 3 waves!</p><p style="color:var(--success)">📢 QNA Session every 5 waves with VOICE ALERT!</p></div>
+<div class="instructions"><p><span>Step 1:</span> Upload Chandan's face photo (Zombie)</p><p><span>Step 2:</span> Upload Chandan's boss photo (Flexing)</p><p><span>PC:</span> WASD Move | Mouse Aim | Click Shoot</p><p><span>Mobile:</span> Joystick Move | Fire Button Shoot</p><p style="margin-top:12px;color:var(--danger)">BOSS every 3 waves!</p><p style="color:var(--success)">📢 QNA Session every 5 waves with VOICE ALERT!</p><p style="color:var(--text-muted);font-size:11px;margin-top:8px">Multiplayer: all players share one room, fight together!</p></div>
 </div>
 
 <div class="screen hidden" id="gameOverScreen"><h1 class="game-title">Game Over</h1><p class="game-subtitle">You Couldn't Escape</p><div class="final-score" id="finalScore">0</div><div class="final-waves" id="finalWaves">Survived 0 Waves</div><button class="start-btn" id="restartBtn">Play Again</button></div>
@@ -249,6 +299,15 @@ ctx.setTransform(dpr,0,0,dpr,0,0);
 }
 
 let zombieImage=null,bossImage=null,soundEnabled=true;
+let gameMode='single'; // 'single' or 'multi'
+let localPlayerId=null;
+let ws=null;
+let serverState=null;
+let connected=false;
+let reconnectTimer=null;
+let _multiplayerGameOver=false;
+let _playerDied=false;
+let startedViaStartBtn=false;
 
 function setupImageUpload(inputId,previewId,areaId,placeholderId,callback){
 const input=document.getElementById(inputId),preview=document.getElementById(previewId),area=document.getElementById(areaId),placeholder=document.getElementById(placeholderId);
@@ -266,31 +325,139 @@ reader.readAsDataURL(file);
 
 function checkReady(){
 const btn=document.getElementById('startBtn');
+if (gameMode === 'multi') {
+btn.disabled=false;btn.textContent='Connect & Start';
+return;
+}
 if(zombieImage&&bossImage){btn.disabled=false;btn.textContent='Start Game';}
 else if(zombieImage||bossImage){btn.disabled=true;btn.textContent='Upload One More';}
 else{btn.disabled=true;btn.textContent='Upload Images First';}
 }
 
+// ========== MULTIPLAYER WEBSOCKET ==========
+function getServerUrl() {
+const loc = window.location;
+const proto = loc.protocol === 'https:' ? 'wss:' : 'ws:';
+return proto + '//' + loc.host;
+}
+
+function connectToServer() {
+if (ws) { ws.close(); ws = null; }
+const url = getServerUrl();
+updateConnectionStatus('connecting');
+ws = new WebSocket(url);
+ws.onopen = () => {
+connected = true;
+updateConnectionStatus('connected');
+document.getElementById('modeSingle').disabled = true;
+document.getElementById('modeMulti').disabled = true;
+if (!mpAnimFrameId) startMultiplayerRenderLoop();
+if (gameMode === 'multi' && !startedViaStartBtn) autoStartMultiplayer();
+};
+ws.onmessage = (e) => {
+try {
+const msg = JSON.parse(e.data);
+if (msg.type === 'init') {
+localPlayerId = msg.playerId;
+if (msg.canvasWidth) canvasWidth = msg.canvasWidth;
+if (msg.canvasHeight) canvasHeight = msg.canvasHeight;
+} else if (msg.type === 'state') {
+serverState = msg;
+document.getElementById('playerCountText').textContent = msg.playerCount + ' player' + (msg.playerCount !== 1 ? 's' : '');
+document.getElementById('playerCountBadge').style.display = 'block';
+}
+} catch(ex) {}
+};
+ws.onclose = () => {
+connected = false;
+localPlayerId = null;
+serverState = null;
+document.getElementById('playerCountBadge').style.display = 'none';
+document.getElementById('modeSingle').disabled = false;
+document.getElementById('modeMulti').disabled = false;
+updateConnectionStatus('disconnected');
+if (gameMode === 'multi') scheduleReconnect();
+};
+ws.onerror = () => {
+if (ws) ws.close();
+};
+}
+
+function scheduleReconnect() {
+if (reconnectTimer) clearTimeout(reconnectTimer);
+reconnectTimer = setTimeout(() => {
+if (gameMode === 'multi') {
+connectToServer();
+}
+}, 3000);
+}
+
+function updateConnectionStatus(status) {
+const el = document.getElementById('connectionStatus');
+el.className = 'connection-status ' + status;
+if (status === 'connected') el.textContent = '● Connected';
+else if (status === 'connecting') el.textContent = '● Connecting...';
+else el.textContent = '● Disconnected';
+}
+
+// ========== QNA SOUND FIX FOR MOBILE ==========
+let qnaAudioCtx = null;
+
+function initQnaAudio() {
+if (!qnaAudioCtx) {
+qnaAudioCtx = new (window.AudioContext || window.webkitAudioContext)();
+}
+if (qnaAudioCtx.state === 'suspended') {
+qnaAudioCtx.resume();
+}
+}
+
+function playAlertBeep() {
+try {
+initQnaAudio();
+if (!qnaAudioCtx) return;
+const now = qnaAudioCtx.currentTime;
+// Create a descending siren-like sound
+for (let i = 0; i < 3; i++) {
+const osc = qnaAudioCtx.createOscillator();
+const gain = qnaAudioCtx.createGain();
+osc.type = 'square';
+const freq = 880 - i * 150;
+osc.frequency.setValueAtTime(freq, now + i * 0.15);
+osc.frequency.exponentialRampToValueAtTime(freq * 0.7, now + i * 0.15 + 0.1);
+gain.gain.setValueAtTime(0.15, now + i * 0.15);
+gain.gain.exponentialRampToValueAtTime(0.001, now + i * 0.15 + 0.12);
+osc.connect(gain);
+gain.connect(qnaAudioCtx.destination);
+osc.start(now + i * 0.15);
+osc.stop(now + i * 0.15 + 0.12);
+}
+// Also vibrate if supported
+if (navigator.vibrate) navigator.vibrate(200);
+} catch(e) { /* silent fail */ }
+}
+
 // ========== VOICE / SPEECH SYNTHESIS ==========
 function speak(text) {
-if (!soundEnabled || !window.speechSynthesis) return;
-    
-// Cancel any ongoing speech
-window.speechSynthesis.cancel();
+if (!soundEnabled) return;
 
+// Try speech synthesis first (works on most desktop browsers)
+if (window.speechSynthesis) {
+window.speechSynthesis.cancel();
 const utterance = new SpeechSynthesisUtterance(text);
 utterance.rate = 1.0;
 utterance.pitch = 1.1;
 utterance.volume = 1.0;
-    
-// Try to find a good English voice
 const voices = window.speechSynthesis.getVoices();
-const englishVoice = voices.find(v => v.lang.startsWith('en') && v.name.includes('Male')) 
-                   || voices.find(v => v.lang.startsWith('en'))
-                   || voices[0];
+const englishVoice = voices.find(v => v.lang.startsWith('en') && v.name.includes('Male'))
+|| voices.find(v => v.lang.startsWith('en'))
+|| voices[0];
 if (englishVoice) utterance.voice = englishVoice;
-    
 window.speechSynthesis.speak(utterance);
+}
+
+// Always play beep as fallback (works on all devices including mobile)
+playAlertBeep();
 }
 
 // Preload voices
@@ -307,71 +474,71 @@ let musicNoteIndex = 0;
 let musicPlaying = false;
 
 function initAudioCtx() {
-  if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 }
 
 function buildNarutoTheme() {
-  const A4=440, B4=493.88, C5=523.25, D5=587.33, E5=659.25, F5=698.46, G5=783.99, A5=880, C6=1046.5;
-  return [
-    {f:A4,d:200},{f:E5,d:200},{f:A5,d:200},{f:G5,d:200},
-    {f:E5,d:200},{f:C5,d:200},{f:A4,d:200},{f:E5,d:200},
-    {f:A4,d:200},{f:E5,d:200},{f:A5,d:200},{f:G5,d:200},
-    {f:F5,d:200},{f:E5,d:200},{f:D5,d:200},{f:C5,d:200},
-    {f:C5,d:200},{f:E5,d:200},{f:G5,d:200},{f:A5,d:200},
-    {f:G5,d:200},{f:E5,d:200},{f:C5,d:200},{f:A4,d:200},
-    {f:A4,d:150},{f:C5,d:150},{f:E5,d:150},{f:G5,d:150},
-    {f:A5,d:300},{f:G5,d:150},{f:E5,d:150},
-    {f:C5,d:300},{f:A4,d:300},
-  ];
+const A4=440, B4=493.88, C5=523.25, D5=587.33, E5=659.25, F5=698.46, G5=783.99, A5=880, C6=1046.5;
+return [
+{f:A4,d:200},{f:E5,d:200},{f:A5,d:200},{f:G5,d:200},
+{f:E5,d:200},{f:C5,d:200},{f:A4,d:200},{f:E5,d:200},
+{f:A4,d:200},{f:E5,d:200},{f:A5,d:200},{f:G5,d:200},
+{f:F5,d:200},{f:E5,d:200},{f:D5,d:200},{f:C5,d:200},
+{f:C5,d:200},{f:E5,d:200},{f:G5,d:200},{f:A5,d:200},
+{f:G5,d:200},{f:E5,d:200},{f:C5,d:200},{f:A4,d:200},
+{f:A4,d:150},{f:C5,d:150},{f:E5,d:150},{f:G5,d:150},
+{f:A5,d:300},{f:G5,d:150},{f:E5,d:150},
+{f:C5,d:300},{f:A4,d:300},
+];
 }
 
 function playNote(freq, duration, type) {
-  if (!audioCtx) return;
-  const osc = audioCtx.createOscillator();
-  const gain = audioCtx.createGain();
-  osc.type = type || 'triangle';
-  osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
-  gain.gain.setValueAtTime(0.12, audioCtx.currentTime);
-  gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration/1000);
-  osc.connect(gain);
-  gain.connect(audioCtx.destination);
-  osc.start();
-  osc.stop(audioCtx.currentTime + duration/1000 + 0.05);
+if (!audioCtx) return;
+const osc = audioCtx.createOscillator();
+const gain = audioCtx.createGain();
+osc.type = type || 'triangle';
+osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+gain.gain.setValueAtTime(0.12, audioCtx.currentTime);
+gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration/1000);
+osc.connect(gain);
+gain.connect(audioCtx.destination);
+osc.start();
+osc.stop(audioCtx.currentTime + duration/1000 + 0.05);
 }
 
 function playMusicNote() {
-  if (!soundEnabled || !musicPlaying || !audioCtx) { musicPlaying = false; return; }
-  if (musicNoteIndex >= musicNotes.length) musicNoteIndex = 0;
-  const note = musicNotes[musicNoteIndex];
-  playNote(note.f, note.d, 'triangle');
-  if (musicNoteIndex % 4 === 0) playNote(note.f / 2, note.d, 'sine');
-  musicNoteIndex++;
-  musicTimeout = setTimeout(playMusicNote, Math.max(note.d - 20, 50));
+if (!soundEnabled || !musicPlaying || !audioCtx) { musicPlaying = false; return; }
+if (musicNoteIndex >= musicNotes.length) musicNoteIndex = 0;
+const note = musicNotes[musicNoteIndex];
+playNote(note.f, note.d, 'triangle');
+if (musicNoteIndex % 4 === 0) playNote(note.f / 2, note.d, 'sine');
+musicNoteIndex++;
+musicTimeout = setTimeout(playMusicNote, Math.max(note.d - 20, 50));
 }
 
 function startMusic() {
-  if (musicPlaying) return;
-  initAudioCtx();
-  if (audioCtx.state === 'suspended') audioCtx.resume();
-  musicNotes = buildNarutoTheme();
-  musicNoteIndex = 0;
-  musicPlaying = true;
-  playMusicNote();
+if (musicPlaying) return;
+initAudioCtx();
+if (audioCtx.state === 'suspended') audioCtx.resume();
+musicNotes = buildNarutoTheme();
+musicNoteIndex = 0;
+musicPlaying = true;
+playMusicNote();
 }
 
 function stopMusic() {
-  musicPlaying = false;
-  if (musicTimeout) { clearTimeout(musicTimeout); musicTimeout = null; }
+musicPlaying = false;
+if (musicTimeout) { clearTimeout(musicTimeout); musicTimeout = null; }
 }
 
+// ========== MULTIPLAYER QNA ANNOUNCEMENT ==========
 function showQNAAnnouncement() {
 const el = document.getElementById('qnaAnnouncement');
 el.classList.add('active');
-    
-// Speak!
+
+// Speak + Beep (the beep works on all devices)
 speak("Q N A SESSION! Double Chandans Incoming! Be Prepared!");
-    
-// Hide after duration
+
 setTimeout(() => {
 el.classList.remove('active');
 }, CONFIG.QNA_ANNOUNCE_DURATION);
@@ -442,6 +609,15 @@ function addParticle(x,y,vx,vy,color,size,decay){if(particles.length>=CONFIG.MAX
 function createExplosion(x,y,color,count){for(let i=0;i<Math.min(count,20);i++){const a=(Math.PI*2/count)*i+Math.random()*0.5,s=2+Math.random()*5;addParticle(x,y,Math.cos(a)*s,Math.sin(a)*s,color,4+Math.random()*7,0.02+Math.random()*0.03);}}
 function addDamageNumber(x,y,value,isCrit){if(damageNumbers.length>=CONFIG.MAX_DAMAGE_NUMBERS)damageNumbers.shift();damageNumbers.push({x,y,value,life:1,vy:-2.5,isCrit});}
 
+// ========== PLAYER COLORS ==========
+const PLAYER_COLORS = ['#2ecc71','#3498db','#9b59b6','#f39c12','#1abc9c','#e74c3c','#34495e','#16a085'];
+function getPlayerColor(id) {
+if (!id) return '#2ecc71';
+let hash = 0;
+for (let i = 0; i < id.length; i++) hash = ((hash << 5) - hash) + id.charCodeAt(i);
+return PLAYER_COLORS[Math.abs(hash) % PLAYER_COLORS.length];
+}
+
 function updatePlayer(dt){
 if(!player||!gameState)return;
 let mx=0,my=0;
@@ -508,7 +684,6 @@ gameState.wave++;gameState.isBossWave=gameState.wave%3===0;gameState.isQNAWave=g
 qnaAnnouncedForCurrentWave=false;
 ui.waveNumber.textContent=gameState.wave;
 
-// Show QNA Announcement if this is a QNA wave
 if(gameState.isQNAWave) {
 ui.waveType.textContent='QNA SESSION!';
 ui.waveType.style.color='#ffd700';
@@ -541,14 +716,38 @@ for(let x=0;x<=canvasWidth;x+=gs){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,c
 for(let y=0;y<=canvasHeight;y+=gs){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(canvasWidth,y);ctx.stroke();}
 }
 
-function drawPlayer(){
-if(!player)return;ctx.save();ctx.translate(player.x,player.y);ctx.rotate(player.angle);
-const g=ctx.createRadialGradient(0,0,0,0,0,42);g.addColorStop(0,'rgba(46,204,113,0.3)');g.addColorStop(1,'rgba(46,204,113,0)');
+function drawPlayerShape(x, y, angle, radius, color, isLocal) {
+ctx.save();ctx.translate(x,y);ctx.rotate(angle);
+const g=ctx.createRadialGradient(0,0,0,0,0,42);g.addColorStop(0,color+'4d');g.addColorStop(1,color+'00');
 ctx.fillStyle=g;ctx.beginPath();ctx.arc(0,0,42,0,Math.PI*2);ctx.fill();
-ctx.fillStyle='#2ecc71';ctx.beginPath();ctx.arc(0,0,player.radius,0,Math.PI*2);ctx.fill();
-ctx.fillStyle='#27ae60';ctx.beginPath();ctx.arc(0,0,player.radius-5,0,Math.PI*2);ctx.fill();
+ctx.fillStyle=color;ctx.beginPath();ctx.arc(0,0,radius,0,Math.PI*2);ctx.fill();
+ctx.fillStyle=color+'cc';ctx.beginPath();ctx.arc(0,0,radius-5,0,Math.PI*2);ctx.fill();
 ctx.fillStyle='#34495e';ctx.fillRect(14,-5,20,10);ctx.fillStyle='#2c3e50';ctx.fillRect(31,-4,7,7);
-ctx.fillStyle='#ecf0f1';ctx.beginPath();ctx.arc(7,0,4,0,Math.PI*2);ctx.fill();ctx.restore();
+ctx.fillStyle='#ecf0f1';ctx.beginPath();ctx.arc(7,0,4,0,Math.PI*2);ctx.fill();
+if (isLocal) {
+ctx.strokeStyle='rgba(255,255,255,0.3)';ctx.lineWidth=2;ctx.beginPath();ctx.arc(0,0,radius+4,0,Math.PI*2);ctx.stroke();
+}
+ctx.restore();
+}
+
+function drawPlayer(){
+if(!player)return;
+drawPlayerShape(player.x, player.y, player.angle, player.radius, '#2ecc71', true);
+}
+
+function drawOtherPlayer(p, isLocal) {
+const color = getPlayerColor(p.id);
+drawPlayerShape(p.x, p.y, p.angle || 0, (p.radius || 22), color, isLocal);
+// Draw name tag
+ctx.fillStyle='rgba(0,0,0,0.6)';const tw=ctx.measureText(p.id).width;
+const label = p.id.length > 12 ? p.id.substring(0,12) + '...' : p.id;
+ctx.font='10px sans-serif';ctx.textAlign='center';
+ctx.fillStyle='rgba(0,0,0,0.7)';ctx.fillRect(p.x - tw/2 - 8, p.y - (p.radius || 22) - 28, tw + 16, 18);
+ctx.fillStyle='#fff';ctx.fillText(label, p.x, p.y - (p.radius || 22) - 15);
+// Health bar
+const bw = 40, bh = 4, by = p.y - (p.radius || 22) - 8;
+ctx.fillStyle='rgba(0,0,0,0.75)';ctx.fillRect(p.x - bw/2, by, bw, bh);
+ctx.fillStyle=color;ctx.fillRect(p.x - bw/2, by, bw * Math.max(0, (p.health||0) / (p.maxHealth||100)), bh);
 }
 
 function drawBullets(){
@@ -577,7 +776,132 @@ ctx.restore();
 function drawParticles(){for(const p of particles){ctx.globalAlpha=Math.max(0,p.life);ctx.fillStyle=p.color;ctx.beginPath();ctx.arc(p.x,p.y,Math.max(0.5,p.size*p.life),0,Math.PI*2);ctx.fill();}ctx.globalAlpha=1;}
 function drawDamageNumbers(){for(const d of damageNumbers){ctx.globalAlpha=Math.max(0,d.life);ctx.font=d.isCrit?'bold 22px Segoe UI,sans-serif':'bold 15px Segoe UI,sans-serif';ctx.fillStyle=d.isCrit?'#ffd700':'#ffffff';ctx.textAlign='center';ctx.textBaseline='middle';ctx.strokeStyle='rgba(0,0,0,0.6)';ctx.lineWidth=3;ctx.strokeText('+'+d.value,d.x,d.y);ctx.fillText('+'+d.value,d.x,d.y);}ctx.globalAlpha=1;}
 
+// ========== MULTIPLAYER RENDER LOOP ==========
 let lastTimestamp=0,animFrameId=null;
+let mpLastTimestamp=0,mpAnimFrameId=null;
+let lastQnaWaveChecked = 0;
+
+function startMultiplayerRenderLoop() {
+if (mpAnimFrameId) cancelAnimationFrame(mpAnimFrameId);
+mpLastTimestamp = performance.now();
+mpAnimFrameId = requestAnimationFrame(multiplayerRenderLoop);
+}
+
+function multiplayerRenderLoop(timestamp) {
+if (!serverState || gameMode !== 'multi') {
+mpAnimFrameId = requestAnimationFrame(multiplayerRenderLoop);
+return;
+}
+
+ctx.clearRect(0,0,canvasWidth,canvasHeight);
+drawBackground();
+
+// Draw particles from server (we generate locally based on events)
+drawParticles();
+
+// Draw bullets from server
+if (serverState.bullets) {
+ctx.save();
+for (const b of serverState.bullets) {
+const g=ctx.createLinearGradient(b.x-b.vx*2.5,b.y-b.vy*2.5,b.x,b.y);g.addColorStop(0,'rgba(255,200,50,0)');g.addColorStop(1,'rgba(255,220,100,1)');
+ctx.strokeStyle=g;ctx.lineWidth=(b.radius||5)*1.4;ctx.lineCap='round';ctx.beginPath();ctx.moveTo(b.x-b.vx*2.5,b.y-b.vy*2.5);ctx.lineTo(b.x,b.y);ctx.stroke();
+ctx.fillStyle='#fff';ctx.beginPath();ctx.arc(b.x,b.y,(b.radius||5)*0.55,0,Math.PI*2);ctx.fill();
+}
+ctx.restore();
+}
+
+// Draw zombies from server
+if (serverState.zombies) {
+for (const z of serverState.zombies) {
+ctx.save();ctx.translate(z.x,z.y);
+const bob=Math.sin(timestamp*0.004+(z.animOffset||0))*(z.isBoss?3.5:2.5);ctx.translate(0,bob);
+if(z.isBoss){const g=ctx.createRadialGradient(0,0,0,0,0,z.radius+22);g.addColorStop(0,'rgba(230,57,70,0.35)');g.addColorStop(1,'rgba(230,57,70,0)');ctx.fillStyle=g;ctx.beginPath();ctx.arc(0,0,z.radius+22,0,Math.PI*2);ctx.fill();}
+if(z.hitFlash>0)ctx.globalAlpha=1-z.hitFlash*0.5;
+const img=z.isBoss?bossImage:zombieImage;
+if(img&&img.complete){ctx.save();ctx.beginPath();ctx.arc(0,0,z.radius,0,Math.PI*2);ctx.clip();ctx.drawImage(img,-z.radius,-z.radius,z.radius*2,z.radius*2);ctx.restore();}
+else{ctx.fillStyle=z.isBoss?'#c0392b':'#e74c3c';ctx.beginPath();ctx.arc(0,0,z.radius,0,Math.PI*2);ctx.fill();ctx.fillStyle='#fff';ctx.font='bold 12px sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(z.isBoss?'BOSS':'?',0,0);}
+ctx.globalAlpha=1;
+if(z.health<z.maxHealth){const bw=z.radius*1.6,bh=5,by=-z.radius-12;ctx.fillStyle='rgba(0,0,0,0.75)';ctx.fillRect(-bw/2,by,bw,bh);ctx.fillStyle=z.isBoss?'#e63946':'#2ecc71';ctx.fillRect(-bw/2,by,bw*Math.max(0,z.health/z.maxHealth),bh);}
+ctx.restore();
+}
+}
+
+// QNA announcement check
+if (serverState.wave && serverState.wave !== lastQnaWaveChecked) {
+lastQnaWaveChecked = serverState.wave;
+if (serverState.isQNAWave) {
+showQNAAnnouncement();
+}
+}
+
+// Draw other players
+if (serverState.players) {
+for (const pid in serverState.players) {
+const p = serverState.players[pid];
+if (pid === localPlayerId) continue;
+if (!p.connected) continue;
+drawOtherPlayer(p, false);
+}
+// Draw local player
+if (localPlayerId && serverState.players[localPlayerId]) {
+const lp = serverState.players[localPlayerId];
+drawOtherPlayer(lp, true);
+// Update UI from server state
+ui.healthBar.style.width = Math.max(0, Math.min(100, lp.health || 0)) + '%';
+ui.scoreDisplay.textContent = (lp.score || 0).toLocaleString();
+ui.killsDisplay.textContent = (lp.kills || 0).toLocaleString();
+if (serverState.wave) {
+ui.waveNumber.textContent = serverState.wave;
+ui.waveType.textContent = serverState.waveType || 'Normal';
+if (serverState.waveType === 'QNA SESSION!') ui.waveType.style.color = '#ffd700';
+else if (serverState.waveType === 'BOSS WAVE!') ui.waveType.style.color = '#e63946';
+else ui.waveType.style.color = '#2ecc71';
+}
+// Timer bar
+if (serverState.waveStartTime && serverState.waveDuration) {
+const elapsed = Date.now() - serverState.waveStartTime;
+ui.timerBar.style.width = Math.max(0, (1 - elapsed / serverState.waveDuration) * 100) + '%';
+}
+}
+}
+
+drawDamageNumbers();
+
+// Check death / game over
+if (localPlayerId && serverState.players && serverState.players[localPlayerId]) {
+const lp = serverState.players[localPlayerId];
+if (lp.health <= 0 && !_multiplayerGameOver && !_playerDied) {
+_playerDied = true;
+document.getElementById('youDiedOverlay').classList.add('active');
+document.getElementById('spectatorLabel').classList.add('active');
+} else if (lp.health > 0) {
+_playerDied = false;
+document.getElementById('youDiedOverlay').classList.remove('active');
+document.getElementById('spectatorLabel').classList.remove('active');
+}
+}
+if (serverState.gameOver) {
+document.getElementById('youDiedOverlay').classList.remove('active');
+document.getElementById('spectatorLabel').classList.remove('active');
+if (localPlayerId && serverState.players && serverState.players[localPlayerId]) {
+const lp = serverState.players[localPlayerId];
+if (lp.health <= 0 && !_multiplayerGameOver) {
+_multiplayerGameOver = true;
+stopMusic();
+const score = lp.score || 0;
+ui.finalScore.textContent = score.toLocaleString();
+ui.finalWaves.textContent = 'Survived ' + (serverState.wave || 1) + ' Waves';
+ui.gameOverScreen.classList.remove('hidden');
+}
+}
+} else if (serverState.gameOver === false) {
+_multiplayerGameOver = false;
+}
+
+mpAnimFrameId = requestAnimationFrame(multiplayerRenderLoop);
+}
+
+// ========== SINGLE PLAYER GAME LOOP ==========
 function gameLoop(timestamp){
 if(!gameState||!gameState.running)return;
 const dt=Math.min(timestamp-lastTimestamp,50);lastTimestamp=timestamp;
@@ -588,67 +912,132 @@ if(gameState.running)animFrameId=requestAnimationFrame(gameLoop);
 
 // ========== BOOK SELECTION MINI-GAME ==========
 const BOOKS = [
-  { id: 'math', label: 'Mathematics', icon: '📐' },
-  { id: 'science', label: 'Science', icon: '🔬' },
-  { id: 'history', label: 'History', icon: '📜' },
-  { id: 'english', label: 'English', icon: '📖' },
-  { id: 'optmaths', label: 'Opt Maths', icon: '📊' },
-  { id: 'nepali', label: 'Nepali', icon: '📕' },
+{ id: 'math', label: 'Mathematics', icon: '📐' },
+{ id: 'science', label: 'Science', icon: '🔬' },
+{ id: 'history', label: 'History', icon: '📜' },
+{ id: 'english', label: 'English', icon: '📖' },
+{ id: 'optmaths', label: 'Opt Maths', icon: '📊' },
+{ id: 'nepali', label: 'Nepali', icon: '📕' },
 ];
 
 function showBookSelection(callback) {
-  const screen = document.getElementById('bookScreen');
-  const grid = document.getElementById('bookGrid');
-  const prompt = document.getElementById('bookPromptSubject');
-  const correct = BOOKS[Math.floor(Math.random() * BOOKS.length)];
-  let picked = false;
+const screen = document.getElementById('bookScreen');
+const grid = document.getElementById('bookGrid');
+const prompt = document.getElementById('bookPromptSubject');
+const correct = BOOKS[Math.floor(Math.random() * BOOKS.length)];
+let picked = false;
 
-  prompt.textContent = `"Take out your ${correct.label} book!"`;
-  grid.innerHTML = '';
+prompt.textContent = `"Take out your ${correct.label} book!"`;
+grid.innerHTML = '';
 
-  if (soundEnabled && window.speechSynthesis) {
-    window.speechSynthesis.cancel();
-    const u = new SpeechSynthesisUtterance(`Take out your ${correct.label} book!`);
-    u.rate = 0.95; u.pitch = 1.0; u.volume = 1.0;
-    const v = window.speechSynthesis.getVoices();
-    const ev = v.find(x => x.lang.startsWith('en')) || v[0];
-    if (ev) u.voice = ev;
-    window.speechSynthesis.speak(u);
-  }
-
-  const shuffled = [...BOOKS].sort(() => Math.random() - 0.5);
-  for (const book of shuffled) {
-    const card = document.createElement('div');
-    card.className = 'book-card';
-    card.innerHTML = `<span class="book-icon">${book.icon}</span><div class="book-label">${book.label}</div>`;
-    card.dataset.id = book.id;
-    card.addEventListener('click', () => {
-      if (picked) return;
-      if (book.id === correct.id) {
-        picked = true;
-        card.classList.add('correct');
-        document.querySelectorAll('.book-card').forEach(c => c.classList.add('disabled'));
-        setTimeout(() => {
-          screen.classList.remove('active');
-          callback();
-        }, 500);
-      } else {
-        card.classList.add('wrong');
-        setTimeout(() => card.classList.remove('wrong'), 400);
-      }
-    });
-    grid.appendChild(card);
-  }
-
-  screen.classList.add('active');
+if (soundEnabled && window.speechSynthesis) {
+window.speechSynthesis.cancel();
+const u = new SpeechSynthesisUtterance(`Take out your ${correct.label} book!`);
+u.rate = 0.95; u.pitch = 1.0; u.volume = 1.0;
+const v = window.speechSynthesis.getVoices();
+const ev = v.find(x => x.lang.startsWith('en')) || v[0];
+if (ev) u.voice = ev;
+window.speechSynthesis.speak(u);
 }
 
+const shuffled = [...BOOKS].sort(() => Math.random() - 0.5);
+for (const book of shuffled) {
+const card = document.createElement('div');
+card.className = 'book-card';
+card.innerHTML = `<span class="book-icon">${book.icon}</span><div class="book-label">${book.label}</div>`;
+card.dataset.id = book.id;
+card.addEventListener('click', () => {
+if (picked) return;
+if (book.id === correct.id) {
+picked = true;
+card.classList.add('correct');
+document.querySelectorAll('.book-card').forEach(c => c.classList.add('disabled'));
+setTimeout(() => {
+screen.classList.remove('active');
+callback();
+}, 500);
+} else {
+card.classList.add('wrong');
+setTimeout(() => card.classList.remove('wrong'), 400);
+}
+});
+grid.appendChild(card);
+}
+
+screen.classList.add('active');
+}
+
+// ========== GAME INPUT SENDING (MULTIPLAYER) ==========
+let inputSendInterval = null;
+
+function startSendingInputs() {
+if (inputSendInterval) clearInterval(inputSendInterval);
+inputSendInterval = setInterval(() => {
+if (!ws || ws.readyState !== WebSocket.OPEN || !localPlayerId || gameMode !== 'multi') return;
+let mx=0,my=0;
+if(keys.w||keys.up)my-=1;if(keys.s||keys.down)my+=1;if(keys.a||keys.left)mx-=1;if(keys.d||keys.right)mx+=1;
+if(Math.abs(joystickInput.x)>0.15)mx+=joystickInput.x;if(Math.abs(joystickInput.y)>0.15)my+=joystickInput.y;
+const mag=Math.sqrt(mx*mx+my*my);if(mag>1){mx/=mag;my/=mag;}
+
+// Calculate mouse position relative to the current canvas
+const mouseX = mousePos.x;
+const mouseY = mousePos.y;
+
+ws.send(JSON.stringify({
+type: 'input',
+mx, my, mouseX, mouseY, shooting: isShooting,
+}));
+}, 1000 / 60); // 60fps input
+}
+
+function stopSendingInputs() {
+if (inputSendInterval) { clearInterval(inputSendInterval); inputSendInterval = null; }
+}
+
+function autoStartMultiplayer() {
+if (startedViaStartBtn) return;
+startedViaStartBtn = true;
+ui.startScreen.classList.add('hidden');
+document.getElementById('connectionStatus').style.display = 'none';
+beginMultiplayer();
+startSendingInputs();
+}
+
+// ========== GAME START ==========
 function startGame(){
 if(animFrameId)cancelAnimationFrame(animFrameId);
+if(mpAnimFrameId)cancelAnimationFrame(mpAnimFrameId);
+stopSendingInputs();
 ui.startScreen.classList.add('hidden');
+
+if (gameMode === 'multi') {
+if (!connected) {
+connectToServer();
+}
+if (!mpAnimFrameId) startMultiplayerRenderLoop();
+startSendingInputs();
+beginMultiplayer();
+} else {
+// Single player: existing behavior
 showBookSelection(() => {
-  beginGameplay();
+beginGameplay();
 });
+}
+}
+
+function beginMultiplayer() {
+document.getElementById('qnaAnnouncement').classList.remove('active');
+document.getElementById('youDiedOverlay').classList.remove('active');
+document.getElementById('spectatorLabel').classList.remove('active');
+ui.gameOverScreen.classList.add('hidden');
+ui.waveNumber.textContent = '1';
+ui.waveType.textContent = 'Connected';
+ui.waveType.style.color = '#2ecc71';
+gameState = createGameState();
+gameState.running = true;
+_playerDied = false;
+_multiplayerGameOver = false;
+startMusic();
 }
 
 function beginGameplay(){
@@ -671,11 +1060,35 @@ stopMusic();
 ui.finalScore.textContent=gameState.score.toLocaleString();ui.finalWaves.textContent='Survived '+gameState.wave+' Waves';ui.gameOverScreen.classList.remove('hidden');
 }
 
+// ========== EVENTS ==========
 function setupEvents(){
 document.getElementById('startBtn').addEventListener('click',startGame);
-document.getElementById('restartBtn').addEventListener('click',()=>{stopMusic();document.getElementById('bookScreen').classList.remove('active');ui.gameOverScreen.classList.add('hidden');ui.startScreen.classList.remove('hidden');});
+document.getElementById('restartBtn').addEventListener('click',()=>{stopMusic();document.getElementById('bookScreen').classList.remove('active');document.getElementById('youDiedOverlay').classList.remove('active');document.getElementById('spectatorLabel').classList.remove('active');stopSendingInputs();ui.gameOverScreen.classList.add('hidden');ui.startScreen.classList.remove('hidden');if(ws){ws.close();ws=null;}connected=false;localPlayerId=null;serverState=null;startedViaStartBtn=false;_multiplayerGameOver=false;_playerDied=false;document.getElementById('playerCountBadge').style.display='none';document.getElementById('connectionStatus').style.display='block';});
 setupImageUpload('zombieInput','zombiePreview','zombieUploadArea','zombiePlaceholder',(img)=>{zombieImage=img;});
 setupImageUpload('bossInput','bossPreview','bossUploadArea','bossPlaceholder',(img)=>{bossImage=img;});
+
+// Mode toggle
+document.getElementById('modeSingle').addEventListener('click', () => {
+gameMode = 'single';
+document.getElementById('modeSingle').classList.add('active');
+document.getElementById('modeMulti').classList.remove('active');
+document.getElementById('serverSection').classList.remove('visible');
+checkReady();
+if (ws) { ws.close(); ws = null; }
+connected = false;
+localPlayerId = null;
+serverState = null;
+document.getElementById('playerCountBadge').style.display = 'none';
+});
+document.getElementById('modeMulti').addEventListener('click', () => {
+gameMode = 'multi';
+document.getElementById('modeMulti').classList.add('active');
+document.getElementById('modeSingle').classList.remove('active');
+document.getElementById('serverSection').classList.add('visible');
+updateConnectionStatus('connecting');
+connectToServer();
+checkReady();
+});
 
 // Sound toggle
 ui.soundToggle.addEventListener('click', () => {
@@ -704,19 +1117,23 @@ shootBtn.addEventListener('touchstart',e=>{e.preventDefault();e.stopPropagation(
 shootBtn.addEventListener('touchend',e=>{e.preventDefault();isShooting=false;shootBtn.classList.remove('pressed');},{passive:false});
 shootBtn.addEventListener('touchcancel',()=>{isShooting=false;shootBtn.classList.remove('pressed');});
 
+// Init QNA audio context on first user interaction
+document.addEventListener('pointerdown', () => { initQnaAudio(); }, { once: true });
+document.addEventListener('touchstart', () => { initQnaAudio(); }, { once: true });
+
 let resizeTimer;window.addEventListener('resize',()=>{clearTimeout(resizeTimer);resizeTimer=setTimeout(()=>{resizeCanvas();if(player){player.x=Math.max(player.radius,Math.min(canvasWidth-player.radius,player.x));player.y=Math.max(player.radius,Math.min(canvasHeight-player.radius,player.y));}},100);});
 }
 
 function loadDefaultImages(){
-  const load=()=>{
-    const z=new Image();
-    z.onload=()=>{zombieImage=z;document.getElementById('zombiePreview').src='Zombie.png';document.getElementById('zombiePreview').style.display='block';document.getElementById('zombiePlaceholder').style.display='none';document.getElementById('zombieUploadArea').classList.add('has-image');checkReady();};
-    z.src='Zombie.png?'+Date.now();
-    const b=new Image();
-    b.onload=()=>{bossImage=b;document.getElementById('bossPreview').src='boss.png';document.getElementById('bossPreview').style.display='block';document.getElementById('bossPlaceholder').style.display='none';document.getElementById('bossUploadArea').classList.add('has-image');checkReady();};
-    b.src='boss.png?'+Date.now();
-  };
-  setTimeout(load,100);
+const load=()=>{
+const z=new Image();
+z.onload=()=>{zombieImage=z;document.getElementById('zombiePreview').src='Zombie.png';document.getElementById('zombiePreview').style.display='block';document.getElementById('zombiePlaceholder').style.display='none';document.getElementById('zombieUploadArea').classList.add('has-image');checkReady();};
+z.src='Zombie.png?'+Date.now();
+const b=new Image();
+b.onload=()=>{bossImage=b;document.getElementById('bossPreview').src='boss.png';document.getElementById('bossPreview').style.display='block';document.getElementById('bossPlaceholder').style.display='none';document.getElementById('bossUploadArea').classList.add('has-image');checkReady();};
+b.src='boss.png?'+Date.now();
+};
+setTimeout(load,100);
 }
 
 function init(){cacheUI();resizeCanvas();setupEvents();mousePos={x:canvasWidth/2,y:canvasHeight/2};loadDefaultImages();}
